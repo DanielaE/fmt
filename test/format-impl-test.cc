@@ -19,6 +19,7 @@
 #include "gtest-extra.h"
 #include "util.h"
 
+#pragma warning(disable: 4702)
 #undef max
 
 using fmt::detail::bigint;

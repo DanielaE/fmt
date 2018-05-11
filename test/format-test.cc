@@ -36,6 +36,12 @@
 
 #undef ERROR
 
+#pragma warning(disable: 4244 4459)
+#pragma warning(disable: 4127) // VS2013
+#if defined(__clang__)
+#  pragma clang diagnostic ignored "-Wunused-local-typedef"
+#endif
+
 using fmt::basic_memory_buffer;
 using fmt::format;
 using fmt::format_error;

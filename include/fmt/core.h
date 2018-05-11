@@ -243,6 +243,11 @@
 #  pragma execution_character_set("utf-8")
 #endif
 
+#ifdef _MSC_VER
+#  pragma warning(push)
+#  pragma warning(disable : 4127 4512)  // VS2013
+#endif
+
 FMT_BEGIN_NAMESPACE
 
 // Implementations of enable_if_t and other metafunctions for older systems.
@@ -1878,5 +1883,9 @@ inline void print(const S& format_str, Args&&... args) {
                                        vargs);
 }
 FMT_END_NAMESPACE
+
+#ifdef _MSC_VER
+#  pragma warning(pop)
+#endif
 
 #endif  // FMT_CORE_H_

@@ -8,6 +8,8 @@
 #include "fmt/core.h"
 #include "gtest.h"
 
+#pragma warning(disable : 4003)
+
 TEST(AssertTest, Fail) {
 #if GTEST_HAS_DEATH_TEST
   EXPECT_DEBUG_DEATH(FMT_ASSERT(false, "don't panic!"), "don't panic!");

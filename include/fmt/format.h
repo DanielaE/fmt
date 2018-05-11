@@ -41,6 +41,13 @@
 #include <memory>
 #include <stdexcept>
 
+#ifdef _MSC_VER
+#  pragma warning(push)
+#  pragma warning(disable : 4459 4702)
+#  pragma warning(disable : 4127)            // VS2015
+#  pragma warning(disable : 4610 4510 4512)  // VS2013
+#endif
+
 #include "core.h"
 
 #ifdef __INTEL_COMPILER
@@ -3712,6 +3719,10 @@ FMT_END_NAMESPACE
 #  include "format-inl.h"
 #else
 #  define FMT_FUNC
+#endif
+
+#ifdef _MSC_VER
+#  pragma warning(pop)
 #endif
 
 #endif  // FMT_FORMAT_H_
