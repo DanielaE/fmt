@@ -703,6 +703,7 @@ void iterator_buffer<OutputIt, T, Traits>::flush() {
 }  // namespace detail
 
 #ifndef FMT_MODULE_IMPLEMENTATION
+FMT_MODULE_EXPORT_BEGIN
 
 // The number of characters to store in the basic_memory_buffer object itself
 // to avoid dynamic memory allocation.
@@ -871,6 +872,7 @@ class FMT_API format_error : public std::runtime_error {
   ~format_error() FMT_NOEXCEPT FMT_OVERRIDE;
 };
 
+FMT_MODULE_EXPORT_END
 namespace detail {
 
 template <typename T>
@@ -1271,7 +1273,7 @@ template <typename Char> struct fill_t {
   }
 };
 }  // namespace detail
-
+FMT_MODULE_EXPORT_BEGIN
 // We cannot use enum classes as bit fields because of a gcc bug
 // https://gcc.gnu.org/bugzilla/show_bug.cgi?id=61414.
 namespace align {
@@ -1307,6 +1309,7 @@ template <typename Char> struct basic_format_specs {
 
 using format_specs = basic_format_specs<char>;
 
+FMT_MODULE_EXPORT_END
 namespace detail {
 namespace dragonbox {
 
@@ -3325,6 +3328,7 @@ FMT_API void format_error_code(buffer<char>& out, int error_code,
 FMT_API void report_error(format_func func, int error_code,
                           string_view message) FMT_NOEXCEPT;
 }  // namespace detail
+FMT_MODULE_EXPORT_BEGIN
 
 template <typename OutputIt, typename Char>
 using arg_formatter FMT_DEPRECATED_ALIAS =
@@ -3853,6 +3857,8 @@ std::basic_string<Char> to_string(const basic_memory_buffer<Char, SIZE>& buf) {
   return std::basic_string<Char>(buf.data(), size);
 }
 
+FMT_MODULE_EXPORT_END
+
 template <typename Char>
 void detail::vformat_to(
     detail::buffer<Char>& buf, basic_string_view<Char> format_str,
@@ -3900,6 +3906,8 @@ extern template int snprintf_float<long double>(long double value,
                                                 buffer<char>& buf);
 }  // namespace detail
 #endif
+
+FMT_MODULE_EXPORT_BEGIN
 
 template <typename S, typename Char = char_t<S>,
           FMT_ENABLE_IF(detail::is_string<S>::value)>
@@ -3985,6 +3993,7 @@ void vprint(basic_string_view<Char> format_str, wformat_args args) {
   vprint(stdout, format_str, args);
 }
 
+FMT_MODULE_EXPORT_END
 #if FMT_USE_USER_DEFINED_LITERALS
 namespace detail {
 template <typename Char> struct udl_formatter {
@@ -4004,6 +4013,7 @@ template <typename Char> struct udl_arg {
   }
 };
 }  // namespace detail
+FMT_MODULE_EXPORT_BEGIN
 
 inline namespace literals {
 /**
@@ -4042,6 +4052,8 @@ constexpr detail::udl_arg<wchar_t> operator"" _a(const wchar_t* s, size_t) {
   return {s};
 }
 }  // namespace literals
+
+FMT_MODULE_EXPORT_END
 #endif  // FMT_USE_USER_DEFINED_LITERALS
 #endif  // FMT_MODULE_IMPLEMENTATION
 FMT_END_NAMESPACE
