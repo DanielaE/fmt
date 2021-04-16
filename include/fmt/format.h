@@ -3477,6 +3477,7 @@ struct formatter<T, Char,
   // terminating '}'.
   template <typename ParseContext>
   FMT_CONSTEXPR auto parse(ParseContext& ctx) -> decltype(ctx.begin()) {
+    using namespace detail;
     auto begin = ctx.begin(), end = ctx.end();
     if (begin == end) return begin;
     using handler_type = detail::dynamic_specs_handler<ParseContext>;
@@ -3624,6 +3625,7 @@ template <typename Char = char> class dynamic_formatter {
  public:
   template <typename ParseContext>
   FMT_CONSTEXPR auto parse(ParseContext& ctx) -> decltype(ctx.begin()) {
+    using namespace detail;
     format_str_ = ctx.begin();
     // Checks are deferred to formatting time when the argument type is known.
     detail::dynamic_specs_handler<ParseContext> handler(specs_, ctx);
@@ -3632,6 +3634,7 @@ template <typename Char = char> class dynamic_formatter {
 
   template <typename T, typename FormatContext>
   auto format(const T& val, FormatContext& ctx) -> decltype(ctx.out()) {
+    using namespace detail;
     handle_specs(ctx);
     detail::specs_checker<null_handler> checker(
         null_handler(), detail::mapped_type_constant<T, FormatContext>::value);
